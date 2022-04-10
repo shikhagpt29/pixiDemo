@@ -5,6 +5,7 @@
 import {MainProjectClass} from "./MainProjectClass";
 import {Emitter} from "pixi-particles";
 import {gsap} from "gsap";
+import {Button} from "./Button";
 
 export class ParticleAnimation extends PIXI.Container {
     private _fireParticlesEmitter: Emitter;
@@ -90,13 +91,10 @@ export class ParticleAnimation extends PIXI.Container {
 
     protected initAnimations(): void {
         this._isPlaying = true;
-        this._fireContainer = new PIXI.Container();
-        const text: PIXI.Text = new PIXI.Text("Show PIXI Particals");
-        this._fireContainer.interactive = true;
-        this._fireContainer.buttonMode = true;
-        this._fireContainer.name = "button";
-        this._fireContainer.addChild(text);
+        this._fireContainer = new Button("fireButton");
         this._fireContainer.name = "fireContainer";
+        const text: PIXI.Text = new PIXI.Text("Show PIXI Particals");
+        this._fireContainer.addChild(text);
         this.addChild(this._fireContainer);
         this.createFireParticlesAnimationEmitter();
         this._fireContainer.position.set(0, 50);

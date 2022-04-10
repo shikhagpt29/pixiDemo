@@ -6,7 +6,7 @@ import {Application} from "./Application";
 import {CardDeck} from "./CardDeck";
 import {MixedTextTool} from "./MixedTextTool";
 import {ParticleAnimation} from "./ParticleAnimation";
-import {gsap, TweenMax} from "gsap";
+import {gsap} from "gsap";
 
 export class MainProjectClass extends Application {
     public static cardDeck: CardDeck;

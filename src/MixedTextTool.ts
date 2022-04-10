@@ -4,6 +4,7 @@
 
 import {TimelineLite} from "gsap";
 import {MainProjectClass} from "./MainProjectClass";
+import {Button} from "./Button";
 
 export class MixedTextTool extends PIXI.Container {
 
@@ -27,11 +28,8 @@ export class MixedTextTool extends PIXI.Container {
 
     private createMixedTextScreen(): void {
         this._mixedTextContainer = new PIXI.Container();
-        this._mixedScreen = new PIXI.Container();
+        this._mixedScreen = new Button("button");
         const text: PIXI.Text = new PIXI.Text("Show Mixed Screen");
-        this._mixedScreen.interactive = true;
-        this._mixedScreen.buttonMode = true;
-        this._mixedScreen.name = "button";
         this._mixedScreen.addChild(text);
         this._mixedScreen.on('pointertap', () => {
                 if (this._isShowing) {
