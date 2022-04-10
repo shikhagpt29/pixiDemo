@@ -57,8 +57,8 @@ export class ParticleAnimation extends PIXI.Container {
             "spawnRect": {
                 "x": 0,
                 "y": 0,
-                "w": 800,
-                "h": 800
+                "w": 400,
+                "h": 400
             }
         };
 
@@ -85,6 +85,7 @@ export class ParticleAnimation extends PIXI.Container {
         this._isPlaying = false;
         this._fireParticlesEmitter.cleanup();
         this._fireParticlesEmitter.emit = false;
+        gsap.ticker.remove(()=>this.update());
     }
 
     protected initAnimations(): void {
@@ -98,13 +99,13 @@ export class ParticleAnimation extends PIXI.Container {
         this._fireContainer.name = "fireContainer";
         this.addChild(this._fireContainer);
         this.createFireParticlesAnimationEmitter();
-        this._fireContainer.position.set(50, 100);
+        this._fireContainer.position.set(950, 50);
         this._fireContainer.on('pointertap', () => {
                 if (this._isPlaying) {
-                    text.text = "Hide PIXI Particals";
+                    text.text = "Show PIXI Particals";
                     this.stopAnimation();
                 } else {
-                    text.text = "Show PIXI Particals";
+                    text.text = "Hide PIXI Particals";
                     this.playAnimation();
                 }
             }

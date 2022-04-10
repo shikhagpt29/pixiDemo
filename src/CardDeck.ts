@@ -3,19 +3,20 @@
  */
 import {TimelineLite, TweenLite} from "gsap";
 import {MainProjectClass} from "./MainProjectClass";
+
 export class CardDeck extends PIXI.Container {
     private _cardsContainer: PIXI.Container;
     private _cardsScreen: PIXI.Container;
-    private _numberOfCards: number = 14;
+    private _numberOfCards: number = 144;
     private _tl: TimelineLite;
 
     constructor() {
         super();
-        console.log("CardDeck constructpr");
+        console.log("CardDeck constructor");
         this.createCardScreen();
     }
 
-    public hideCardContainer() {
+    public hideCardContainer(): void {
         if (this._cardsScreen) {
             this._cardsScreen.visible = false;
         }
@@ -31,28 +32,27 @@ export class CardDeck extends PIXI.Container {
             count++;
             const sprite = this._cardsContainer.children[i] as PIXI.Sprite;
             sprite.scale.set(0.2);
-            sprite.position.set(0, i * 10);
+            sprite.position.set(0, i * 5);
             this._cardsContainer.addChild(sprite);
             this._tl.add(new TweenLite(sprite, {
-                duration: 2, x: 300, y: 10 * count, onComplete: () => {
-
+                duration: 2, x: 300, y: 5 * count, onComplete: () => {
                 }
-            }));
+            }), count);
         }
     }
 
-    private resetDecks() {
+    private resetDecks(): void {
         for (let i = 0; i < this._cardsContainer.children.length; i++) {
             const sprite = this._cardsContainer.children[i] as PIXI.Sprite;
             sprite.scale.set(0.2);
-            sprite.position.set(0, i * 10);
+            sprite.position.set(0, i * 5);
             if (i === this._numberOfCards - 1) {
                 this.reverseDeckClass();
             }
         }
     }
 
-    private createCardButtonsContainer() {
+    private createCardButtonsContainer(): void {
         this._cardsContainer = new PIXI.Container();
         const cardsButton: PIXI.Container = new PIXI.Container();
         const text: PIXI.Text = new PIXI.Text("Play Card Animation");
@@ -79,7 +79,7 @@ export class CardDeck extends PIXI.Container {
 
     }
 
-    private createCardScreen() {
+    private createCardScreen(): void {
         this._cardsScreen = new PIXI.Container();
         const cardsButton: PIXI.Container = new PIXI.Container();
         const text: PIXI.Text = new PIXI.Text("Show Card Screen");
@@ -91,10 +91,6 @@ export class CardDeck extends PIXI.Container {
                 this.createCardButtonsContainer();
                 this._cardsScreen.visible = true;
                 MainProjectClass.mixedText.hideMixContainer();
-                // if (this._mixedContainer) {
-                //     this._mixedContainer.visible = false;
-                // }
-
             }
         );
         cardsButton.position.set(50, 50);
@@ -103,7 +99,6 @@ export class CardDeck extends PIXI.Container {
     }
 
     private createDeckClass(): void {
-
         this._cardsContainer.position.set(200, 200);
         if (this._cardsContainer.children.length > 0) {
             this.resetDecks();
@@ -112,14 +107,13 @@ export class CardDeck extends PIXI.Container {
                 const sprite = new PIXI.Sprite(MainProjectClass.assetLoader.resources["ace"]!.texture);
                 sprite.scale.set(0.2);
                 sprite.name = "sprite_" + i;
-                sprite.position.set(0, i * 10);
+                sprite.position.set(0, i * 5);
                 this._cardsContainer.addChild(sprite);
                 if (i === this._numberOfCards - 1) {
                     this.reverseDeckClass();
                 }
             }
         }
-
         this.addChild(this._cardsContainer);
     }
 
