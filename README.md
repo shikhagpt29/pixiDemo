@@ -1,8 +1,11 @@
 # pixiDemo
 To run this app
 Download zipped folder or clone the project
+
 npm install -g (to install node modules)
+
 this project also uses pixi-particles
+
 use npm install pixi-particles (if not already installed)
 
 To create Bundle Js
