@@ -9,7 +9,7 @@ export class CardDeck extends PIXI.Container {
     private _cardsScreen: PIXI.Container;
     private _numberOfCards: number = 144;
     private _tl: TimelineLite;
-
+    private _isPlaying:boolean =false;
     constructor() {
         super();
         console.log("CardDeck constructor");
@@ -26,6 +26,7 @@ export class CardDeck extends PIXI.Container {
     }
 
     private reverseDeckClass(): void {
+        this._isPlaying= true;
         this._tl = new TimelineLite();
         let count: number = 0;
         for (let i = this._numberOfCards - 1; i >= 0; i--) {
@@ -60,23 +61,19 @@ export class CardDeck extends PIXI.Container {
         cardsButton.buttonMode = true;
         cardsButton.name = "button";
         cardsButton.addChild(text);
-        cardsButton.on('pointertap', () =>
-            this.createDeckClass()
+        cardsButton.on('pointertap', () =>{
+            if(this._isPlaying){
+                text.text = "Play Card Animation";
+                this.handleABort()
+
+            }else {
+                text.text = "Abort Card Animation";
+                this.createDeckClass()
+            }
+        }
         );
         cardsButton.position.set(100, 100);
         this._cardsScreen.addChild(cardsButton);
-        const abortCardsButton: PIXI.Container = new PIXI.Container();
-        const abortText: PIXI.Text = new PIXI.Text("Abort Card Animation");
-        abortCardsButton.interactive = true;
-        abortCardsButton.buttonMode = true;
-        abortCardsButton.name = "button";
-        abortCardsButton.addChild(abortText);
-        abortCardsButton.on('pointertap', () =>
-            this.handleABort()
-        );
-        abortCardsButton.position.set(400, 100);
-        this._cardsScreen.addChild(abortCardsButton);
-
     }
 
     private createCardScreen(): void {
@@ -118,6 +115,7 @@ export class CardDeck extends PIXI.Container {
     }
 
     private handleABort(): void {
+        this._isPlaying= false;
         if (this._tl) {
             this._tl.progress(1);
         }
