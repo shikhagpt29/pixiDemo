@@ -8,29 +8,25 @@ import {MainProjectClass} from "./MainProjectClass";
 export class MixedTextTool extends PIXI.Container {
 
     private _mixedScreen: PIXI.Container;
-    private _mixedContainer: PIXI.Container;
+    private _mixedTextContainer: PIXI.Container;
     private _isShowing: boolean = true;
     private _mainTL: TimelineLite;
     private _randomPattern: string[];
 
     constructor() {
         super();
-        this.initGraphics();
         this.createMixedTextScreen();
     }
 
     public hideMixContainer(): void {
         this._isShowing = false;
-        if (this._mixedContainer) {
-            this._mixedContainer.visible = false;
+        if (this._mixedTextContainer) {
+            this._mixedTextContainer.visible = false;
         }
     }
 
-    private initGraphics(): void {
-        this._mixedContainer = new PIXI.Container();
-    }
-
     private createMixedTextScreen(): void {
+        this._mixedTextContainer = new PIXI.Container();
         this._mixedScreen = new PIXI.Container();
         const text: PIXI.Text = new PIXI.Text("Show Mixed Screen");
         this._mixedScreen.interactive = true;
@@ -48,17 +44,18 @@ export class MixedTextTool extends PIXI.Container {
                 MainProjectClass.cardDeck.hideCardContainer();
             }
         );
-        this._mixedScreen.position.set(550, 50);
+        this._mixedScreen.position.set(0, 50);
         this.addChild(this._mixedScreen);
+        this.position.set(400,0);
     }
 
     private creatToolToMixUp(): void {
         this._isShowing = false;
-        this._mixedContainer.visible = true;
+        this._mixedTextContainer.visible = true;
         this._randomPattern = ["text", "sprite"];
         this.generateRandomText();
-        this._mixedContainer.position.set(500, 100);
-        this.addChild(this._mixedContainer);
+        this._mixedTextContainer.position.set(0, 100);
+        this.addChild(this._mixedTextContainer);
     }
 
     private generateRandomText(): void {
@@ -76,7 +73,7 @@ export class MixedTextTool extends PIXI.Container {
     }
 
     private shuffle(array: string[]): PIXI.DisplayObject[] {
-        this._mixedContainer.children.length = 0;
+        this._mixedTextContainer.children.length = 0;
         let currentIndex: number = array.length, randomIndex: number;
         let mixArr: PIXI.DisplayObject[] = [];
         for (let index: number = 0; index < 3; index++) {
@@ -88,7 +85,7 @@ export class MixedTextTool extends PIXI.Container {
                 const sprite: PIXI.Sprite = new PIXI.Sprite(MainProjectClass.assetLoader.resources["price2"]!.texture);
                 mixArr[index] = sprite;
             }
-            this._mixedContainer.addChild(mixArr[index]);
+            this._mixedTextContainer.addChild(mixArr[index]);
         }
         return mixArr;
     }
@@ -102,8 +99,8 @@ export class MixedTextTool extends PIXI.Container {
                 array[items].x = 0;
             }
         }
-        this._mixedContainer.addChild(...array);
-        this._mixedContainer.name = "mixed";
+        this._mixedTextContainer.addChild(...array);
+        this._mixedTextContainer.name = "mixedTextContainer";
     }
 
     private hideTool(): void {
@@ -112,7 +109,7 @@ export class MixedTextTool extends PIXI.Container {
             this._mainTL.pause();
             this._mainTL.kill();
         }
-        this._mixedContainer.children.length = 0;
+        this._mixedTextContainer.children.length = 0;
 
     }
 

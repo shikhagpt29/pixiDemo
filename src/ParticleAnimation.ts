@@ -99,7 +99,7 @@ export class ParticleAnimation extends PIXI.Container {
         this._fireContainer.name = "fireContainer";
         this.addChild(this._fireContainer);
         this.createFireParticlesAnimationEmitter();
-        this._fireContainer.position.set(950, 50);
+        this._fireContainer.position.set(0, 50);
         this._fireContainer.on('pointertap', () => {
                 if (this._isPlaying) {
                     text.text = "Show PIXI Particals";
@@ -110,6 +110,7 @@ export class ParticleAnimation extends PIXI.Container {
                 }
             }
         );
+        this.position.set(700,0);
     }
 
     /**
