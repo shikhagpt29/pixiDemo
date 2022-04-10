@@ -85,7 +85,7 @@ export class ParticleAnimation extends PIXI.Container {
         this._isPlaying = false;
         this._fireParticlesEmitter.cleanup();
         this._fireParticlesEmitter.emit = false;
-        gsap.ticker.remove(()=>this.update());
+        gsap.ticker.remove(() => this.update());
     }
 
     protected initAnimations(): void {

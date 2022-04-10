@@ -1,5 +1,5 @@
 /**
- * Created by shikha on 2020-06-24.
+ * Created by shikha on 2022-04-09.
  */
 
 import {Application} from "./Application";
@@ -19,7 +19,7 @@ export class MainProjectClass extends Application {
         super();
     }
 
-    protected init() {
+    protected init(): void {
         this.loader.add("star", "../media/example/star.png");
         this.loader.add("ace", "../media/example/ace.png");
         this.loader.add("price2", "../media/example/price2.png");
@@ -28,7 +28,7 @@ export class MainProjectClass extends Application {
     }
 
 
-    protected onLoadComplete(loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>) {
+    protected onLoadComplete(loader: PIXI.Loader, resources: Partial<Record<string, PIXI.LoaderResource>>): void {
         MainProjectClass.assetLoader = loader;
         MainProjectClass.cardDeck = new CardDeck();
         MainProjectClass.mixedText = new MixedTextTool();
@@ -41,11 +41,11 @@ export class MainProjectClass extends Application {
         this.stage.addChild(MainProjectClass.particleCont);
         gsap.ticker.fps(30);
         gsap.ticker.add((time, deltaTime, frame) => {
-            this.myCallback(time, deltaTime, frame)
+            this.callBackTicker(time, deltaTime, frame)
         });
     }
 
-    private myCallback(time: any, deltaTime: any, frame: any) {
+    private callBackTicker(time: number, deltaTime: number, frame: number): void {
         this.fpsText.text = "fps: " + gsap.ticker.deltaRatio() * 1000 / deltaTime;
     }
 }

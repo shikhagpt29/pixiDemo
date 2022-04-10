@@ -1,5 +1,5 @@
 /**
- * Created by shikha on 2020-06-24.
+ * Created by shikha on 2022-04-09.
  */
 
 import {TimelineLite} from "gsap";
@@ -15,13 +15,19 @@ export class MixedTextTool extends PIXI.Container {
 
     constructor() {
         super();
+        this.initGraphics();
         this.createMixedTextScreen();
     }
 
     public hideMixContainer(): void {
+        this._isShowing = false;
         if (this._mixedContainer) {
             this._mixedContainer.visible = false;
         }
+    }
+
+    private initGraphics(): void {
+        this._mixedContainer = new PIXI.Container();
     }
 
     private createMixedTextScreen(): void {
@@ -48,7 +54,7 @@ export class MixedTextTool extends PIXI.Container {
 
     private creatToolToMixUp(): void {
         this._isShowing = false;
-        this._mixedContainer = new PIXI.Container();
+        this._mixedContainer.visible = true;
         this._randomPattern = ["text", "sprite"];
         this.generateRandomText();
         this._mixedContainer.position.set(500, 100);
@@ -76,7 +82,7 @@ export class MixedTextTool extends PIXI.Container {
         for (let index: number = 0; index < 3; index++) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             if (array[randomIndex] == "text") {
-                const text: PIXI.Text = new PIXI.Text("some text",{fontSize:this.getRandomFontSize()});
+                const text: PIXI.Text = new PIXI.Text("some text", {fontSize: this.getRandomFontSize()});
                 mixArr[index] = text;
             } else if (array[randomIndex] == "sprite") {
                 const sprite: PIXI.Sprite = new PIXI.Sprite(MainProjectClass.assetLoader.resources["price2"]!.texture);
